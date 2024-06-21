@@ -1,10 +1,24 @@
 use macroquad::prelude::*;
+use miniquad::conf::Platform;
 
-fn window_conf() -> Conf {
-    Conf {
-        window_title: "egui with macroquad".to_owned(),
-        high_dpi: true,
-        ..Default::default()
+fn window_conf() -> macroquad::conf::Conf {
+    macroquad::conf::Conf {
+        miniquad_conf: Conf {
+            window_title: "egui with macroquad".to_owned(),
+            high_dpi: true,
+            platform: Platform {
+                blocking_event_loop: true,
+
+                ..Default::default()
+            },
+            ..Default::default()
+        },
+        update_on: Some(macroquad::conf::UpdateTrigger {
+            mouse_down: true,
+            mouse_up: true,
+            touch: true,
+            ..Default::default()
+        }),
     }
 }
 
@@ -47,7 +61,7 @@ async fn main() {
                 );
 
                 // Don't change scale while dragging the slider
-                if response.drag_released() {
+                if response.drag_stopped() {
                     egui_ctx.set_pixels_per_point(pixels_per_point.unwrap());
                 }
             });

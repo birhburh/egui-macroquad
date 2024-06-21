@@ -92,6 +92,10 @@ impl Egui {
         // Ensure that macroquad's shapes are not goint to be lost, and draw them now
         gl.flush();
         self.egui_mq.draw(gl.quad_context);
+
+        if miniquad::window::blocking_event_loop() && self.egui_mq.egui_ctx().has_requested_repaint() {
+            miniquad::window::schedule_update();
+        }
     }
 }
 
@@ -121,33 +125,65 @@ pub fn reset_egui() {
 impl mq::EventHandler for Egui {
     fn update(&mut self) {}
 
-    fn draw(&mut self) {}
+    fn draw(&mut self) {
+        if miniquad::window::blocking_event_loop() && self.egui_mq.egui_ctx().has_requested_repaint() {
+            miniquad::window::schedule_update();
+        }
+    }
 
     fn mouse_motion_event(&mut self, x: f32, y: f32) {
         self.egui_mq.mouse_motion_event(x, y);
+
+        if miniquad::window::blocking_event_loop() {
+            miniquad::window::schedule_update();
+        }
     }
 
     fn mouse_wheel_event(&mut self, dx: f32, dy: f32) {
         self.egui_mq.mouse_wheel_event(dx, dy);
+
+        if miniquad::window::blocking_event_loop() {
+            miniquad::window::schedule_update();
+        }
     }
 
     fn mouse_button_down_event(&mut self, mb: mq::MouseButton, x: f32, y: f32) {
         self.egui_mq.mouse_button_down_event(mb, x, y);
+
+        if miniquad::window::blocking_event_loop() {
+            miniquad::window::schedule_update();
+        }
     }
 
     fn mouse_button_up_event(&mut self, mb: mq::MouseButton, x: f32, y: f32) {
         self.egui_mq.mouse_button_up_event(mb, x, y);
+
+        if miniquad::window::blocking_event_loop() {
+            miniquad::window::schedule_update();
+        }
     }
 
     fn char_event(&mut self, character: char, _keymods: mq::KeyMods, _repeat: bool) {
         self.egui_mq.char_event(character);
+
+        if miniquad::window::blocking_event_loop() {
+            miniquad::window::schedule_update();
+        }
     }
 
     fn key_down_event(&mut self, keycode: mq::KeyCode, keymods: mq::KeyMods, _repeat: bool) {
         self.egui_mq.key_down_event(keycode, keymods);
+
+        if miniquad::window::blocking_event_loop() {
+            miniquad::window::schedule_update();
+        }
     }
 
     fn key_up_event(&mut self, keycode: mq::KeyCode, keymods: mq::KeyMods) {
         self.egui_mq.key_up_event(keycode, keymods);
+
+        if miniquad::window::blocking_event_loop() {
+            miniquad::window::schedule_update();
+        }
     }
 }

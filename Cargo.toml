@@ -19,8 +19,14 @@ include = [
 
 [dependencies]
 egui = "0.27.0"
-egui-miniquad = { git = 'https://github.com/not-fl3/egui-miniquad.git', rev="5df57233a60f75faadfa14a3ad9d4cddde637605" }
-macroquad = { version="0.4.4", default-features=false }
+egui-miniquad = { git = 'https://github.com/birhburh/egui-miniquad.git', branch="blocking_event_loop" }
+# egui-miniquad = { git = 'https://github.com/not-fl3/egui-miniquad.git', rev="5df57233a60f75faadfa14a3ad9d4cddde637605" }
+# macroquad = { version="0.4.8", default-features=false }
+macroquad = { git = 'https://github.com/not-fl3/macroquad.git' }
+
+[patch.crates-io]
+# until new version added
+miniquad = { git = "https://github.com/not-fl3/miniquad.git" }
 
 
 [features]
