@@ -16,6 +16,8 @@ fn window_conf() -> macroquad::conf::Conf {
         update_on: Some(macroquad::conf::UpdateTrigger {
             mouse_down: true,
             mouse_up: true,
+            mouse_motion: true,
+            mouse_wheel: true,
             touch: true,
             ..Default::default()
         }),
